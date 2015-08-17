@@ -5,6 +5,9 @@ RUN locale-gen en_US.UTF-8
 ENV LANG       en_US.UTF-8
 ENV LC_ALL     en_US.UTF-8
 
+ENV WEBTREE_ROOT /var/www
+ENV WEBTREE_WEBROOT /var/www/html
+
 RUN apt-get update && \
   DEBIAN_FRONTEND="noninteractive" apt-get -y install apache2 && \
   apt-get clean
