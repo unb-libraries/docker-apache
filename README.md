@@ -16,3 +16,6 @@ docker run \
   - http://opensource.org/licenses/mit-license.html
 - Attribution is not required, but much appreciated:
   - `Apache Docker Container by UNB Libraries`
+
+## Credit
+- Original work for this container was based on that of [Ed Borras](https://bitbucket.org/EdBoraas/apache-docker).
