@@ -9,8 +9,7 @@ ENV WEBTREE_ROOT /var/www
 ENV WEBTREE_WEBROOT /var/www/html
 
 RUN apt-get update && \
-  DEBIAN_FRONTEND="noninteractive" apt-get -y install apache2 && \
-  apt-get clean
+  DEBIAN_FRONTEND="noninteractive" apt-get -y install apache2
 
 CMD ["/sbin/my_init"]
 
@@ -22,5 +21,9 @@ ENV APACHE_LOG_DIR /var/log/apache2
 
 ADD services/ /etc/service/
 RUN chmod -v +x /etc/service/*/run
+
+# Clean-up
+RUN apt-get clean && \
+  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80
