@@ -1,24 +1,26 @@
-FROM phusion/baseimage
+FROM gliderlabs/alpine
 MAINTAINER Jacob Sanford <jsanford_at_unb.ca>
 
-ENV APACHE_LOG_DIR /var/log/apache2
-ENV APACHE_RUN_GROUP www-data
-ENV APACHE_RUN_USER www-data
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV WEBTREE_ROOT /var/www
-ENV WEBTREE_WEBROOT /var/www/html
+ENV APACHE_RUN_GROUP apache
+ENV APACHE_RUN_USER apache
+ENV APP_HOSTNAME apache.local
+ENV APP_ROOT /app
+ENV COMPOSER_PATH /usr/local/bin
 
-RUN locale-gen en_US.UTF-8
-RUN apt-get update && \
-  DEBIAN_FRONTEND="noninteractive" apt-get -y install apache2 && \
-  apt-get clean && \
-  rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+ENV APP_LOG_DIR $APP_ROOT/log
+ENV APP_WEBROOT $APP_ROOT/html
 
-ADD conf/apache2/default.conf /etc/apache2/sites-available/000-default.conf
+RUN apk --update add apache2 && \
+  mkdir -p /run/apache2 && \
+  rm -f /var/cache/apk/* && \
+  mkdir -p ${APP_WEBROOT} && \
+  mkdir -p ${APP_LOG_DIR}
 
-CMD ["/sbin/my_init"]
-ADD services/ /etc/service/
-RUN chmod -v +x /etc/service/*/run
+ADD conf/apache2/default.conf /etc/apache2/conf.d/vhost.conf
+ADD scripts /scripts
+RUN chmod -R 755 /scripts
 
+WORKDIR /app
 EXPOSE 80
+
+CMD ["/scripts/run.sh"]
