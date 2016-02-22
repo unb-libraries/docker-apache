@@ -20,6 +20,7 @@ RUN apk --update add apache2 && \
   mkdir -p ${APP_LOG_DIR}
 
 ADD conf/apache2/default.conf /etc/apache2/conf.d/vhost.conf
+
 ADD scripts /scripts
 RUN chmod -R 755 /scripts
 
