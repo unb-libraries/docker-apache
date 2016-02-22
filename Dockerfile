@@ -5,9 +5,13 @@ ENV APACHE_RUN_GROUP apache
 ENV APACHE_RUN_USER apache
 ENV APP_HOSTNAME apache.local
 ENV APP_ROOT /app
+ENV DEPLOY_ENV prod
 
 ENV APP_LOG_DIR $APP_ROOT/log
 ENV APP_WEBROOT $APP_ROOT/html
+
+ENV NGINX_LOG_FILE ${APP_LOG_DIR}/${APP_HOSTNAME}.access.log
+ENV NGINX_ERROR_LOG_FILE ${APP_LOG_DIR}/${APP_HOSTNAME}.error.log
 
 RUN apk --update add apache2 && \
   mkdir -p /run/apache2 && \
