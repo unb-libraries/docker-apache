@@ -26,4 +26,4 @@ RUN chmod -R 755 /scripts
 WORKDIR /app
 EXPOSE 80
 
-CMD ["/scripts/run.sh"]
+ENTRYPOINT ["/scripts/run.sh"]
