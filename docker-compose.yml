@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  web:
+    image: unblibraries/apache:alpine
+    expose:
+     - "80"
+    ports:
+      - "80:80"
+    env_file:
+      - ./env/apache.env
