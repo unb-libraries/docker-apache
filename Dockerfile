@@ -1,7 +1,7 @@
 FROM gliderlabs/alpine
 MAINTAINER Jacob Sanford <jsanford_at_unb.ca>
 
-ENV APACHE_RUN_GROUP apache
+ENV APACHE_RUN_GROUP www-data
 ENV APACHE_RUN_USER apache
 ENV APP_HOSTNAME apache.local
 ENV APP_ROOT /app
